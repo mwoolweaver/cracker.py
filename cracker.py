@@ -93,17 +93,17 @@ def arg_parser():
     parser.add_argument("-time", help="How long to wait (number of seconds) for a response. (example: cracker.py 192.168.1.1 -time 20)", type=float, default=0)
     return parser
 
-def get_fdqn(host):
+def get_fqdn(host):
     from socket import gethostbyaddr, herror
     
-    fdqn = []
+    fqdn = []
     try:
-        fdqn = gethostbyaddr(host)
+        fqdn = gethostbyaddr(host)
     except herror:
         print (f"{GREEN}using IP address " + host)
     else:
-        host = fdqn[0]
-        print (f"{GREEN}using FDQN " + host)
+        host = fqdn[0]
+        print (f"{GREEN}using fqdn " + host)
     return host
 
 def pass_finder(host, port, timeOUT, users, users_before_check, password_list_url):
@@ -169,7 +169,7 @@ if __name__ == "__main__":
                          "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/xato-net-10-million-passwords.txt",
                          "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Keyboard-Combinations.txt"]
 
-    host = get_fdqn(host)
+    host = get_fqdn(host)
 
     # check if ssh is reachable before we do anything. Passing command=None makes the function skip to line 74
     if is_ssh_open(host, "user", "password", port, timeOUT, 1, command=None) == 3:
